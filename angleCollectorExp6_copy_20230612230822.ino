@@ -19,6 +19,7 @@
 
 /* Set the delay between fresh samples */
 #define BNO055_SAMPLERATE_DELAY_MS (50)
+float average;
 float tommy = 0.0;
 float oldTommy = 0.0;
 float nom = 0.0;
@@ -151,6 +152,7 @@ void loop(void)
       //Serial.print("smoother: ");
       //Serial.println(smoother);
     }
+    if(timerTemp > 1000)break;
     delay(20);
   }
   if(trap == 1){
@@ -164,7 +166,7 @@ void loop(void)
     
 }
 float smooth() {
-  float average;
+  
   trap = 0;
   total = total - readings[readIndex];
   readings[readIndex] = oldTommy;
@@ -190,7 +192,7 @@ float smooth() {
 //    strToPrint+= String(pres,2); strToPrint+=","; // uncomment to send pressure
     
     //strToPrint+= String(smooth(),2); strToPrint+="\n"; // uncomment to send altitude
-    strToPrint+= String(smooth() -jism,2); strToPrint+="\n"; // uncomment to send altitude
+    strToPrint+= String(average -jism,2); strToPrint+="\n"; // uncomment to send altitude
     writeBLE(strToPrint); // send string over BLE
   
   }
