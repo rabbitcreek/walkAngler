@@ -3,19 +3,7 @@
 #include <Adafruit_BNO055.h>
 #include <utility/imumaths.h>
 #include <ArduinoBLE.h>
-/* This driver reads raw data from the BNO055
 
-   Connections
-   ===========
-   Connect SCL to analog 5
-   Connect SDA to analog 4
-   Connect VDD to 3.3V DC
-   Connect GROUND to common ground
-
-   History
-   =======
-   2015/MAR/03  - First release (KTOWN)
-*/
 
 /* Set the delay between fresh samples */
 #define BNO055_SAMPLERATE_DELAY_MS (50)
@@ -69,7 +57,7 @@ void setup(void)
 
   BLE.setScanResponseData(scanData);// set data for scanners (BLE apps)
   BLE.advertise(); // advertise BLE device
-  
+  pinMode(D10,INPUT_PULLUP);
   // raw values for fastest response times
   // full list: https://github.com/adafruit/Adafruit_BMP280_Library/blob/master/keywords.txt
   /*
@@ -117,7 +105,7 @@ void loop(void)
     writeBNO055Str();
   }
 
-
+if (!digitalRead(D10))getZero();
     
  
     
